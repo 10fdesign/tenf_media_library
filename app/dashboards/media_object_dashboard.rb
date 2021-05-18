@@ -11,6 +11,7 @@ class MediaObjectDashboard < Administrate::BaseDashboard
     id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    media_directory: Field::BelongsTo,
     name: Field::String,
     alt_text: Field::Text,
     file: Field::ActiveStorage
@@ -41,6 +42,7 @@ class MediaObjectDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+  media_directory
   file
   name
   alt_text

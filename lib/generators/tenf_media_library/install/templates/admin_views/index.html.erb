@@ -46,21 +46,53 @@ It renders the `_table` partial to display details about the resources.
         "administrate.actions.new_resource",
         name: page.resource_name.titleize.downcase
       ),
-      [:new, namespace, page.resource_path],
+      [:new, namespace, page.resource_path, { media_directory: directory }],
       class: "button",
     ) if valid_action?(:new) && show_action?(:new, new_resource) %>
   </div>
 </header>
 
 <section class="main-content__body main-content__body--flush">
-  <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
-  ) %>
+	<div class="container">
+		
+		<div class="row">
+			<% unless directory.nil? %>
+				<div class="col-sm-3">
+					<div class="card">
+						<div class="card-body">
+							<p>
+								<%= link_to "<<", [namespace, page.resource_name.pluralize.gsub("/", "_"), { directory_id: directory.parent_directory_id } ] %>
+							</p>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		  
+		  <% directories.each do |directory| %>
+				<div class="col-sm-3">
+					<div class="card">
+						<div class="card-body">
+					  	<p>
+					  		<%= link_to directory.name, admin_media_objects_path( directory_id: directory.id ) %>
+					  	</p>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
 
-  <%= paginate resources %>
+		<hr>
+
+	  <%= render(
+	    "collection",
+	    collection_presenter: page,
+	    collection_field_name: resource_name,
+	    page: page,
+	    resources: resources,
+	    table_title: "page-title"
+	  ) %>
+
+	  <%= paginate resources %>
+		
+	</div>
 </section>

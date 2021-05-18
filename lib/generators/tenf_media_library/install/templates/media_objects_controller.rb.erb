@@ -1,7 +1,7 @@
 module <%= namespace.to_s.classify %>
   class MediaObjectsController < <%= namespace.to_s.classify %>::ApplicationController
 
-    def index
+	  def index
       respond_to do |format|
         format.js do
           @join_table = params[:join_table]
@@ -13,28 +13,32 @@ module <%= namespace.to_s.classify %>
 
           @query = params[:query].to_s.downcase
 
+          @directory = MediaDirectory.find( params[:directory_id] )
+          @directories = MediaDirectory.where( parent_directory: @directory )
+
           # 12-17-2020 :  I changed this from joins to includes, because it wasn't working with the new event_images for some reason
           # 							but I am not sure that this wasn't a fix for something, so...
   				# selected_images = MediaObject.joins( @join_table ).where( @join_table => { @join_symbol => @join_id })
-  				if @join_id.present?
-  					selected_images = MediaObject.includes( @join_table ).where( @join_table => { @join_symbol => @join_id }).where( "lower(name) like ?", "%#{@query}%" )
-  				elsif @selected_image_id.present?
-  					selected_images = MediaObject.where( id: @selected_image_id ).where( "lower(name) like ?", "%#{@query}%" )
-  				else
-  					selected_images = MediaObject.none
-  				end
+
+  				# if @join_id.present?
+  				# 	selected_images = MediaObject.includes( @join_table ).where( @join_table => { @join_symbol => @join_id }).where( "lower(name) like ?", "%#{@query}%" )
+  				# elsif @selected_image_id.present?
+  				# 	selected_images = MediaObject.where( id: @selected_image_id ).where( "lower(name) like ?", "%#{@query}%" )
+  				# else
+  				# 	selected_images = MediaObject.none
+  				# end
 
           @offset = params[:offset].to_i || 0
-  				if params[:first_load].present?
-  					@images = selected_images
-  					@limit = [4 - selected_images.count, 0].max
-  					if selected_images.count < 4
-  						@images += MediaObject.order(:name, :id).where.not(id: selected_images.map(&:id)).where( "lower(name) like ?", "%#{@query}%" ).offset( @offset ).limit( (4 - selected_images.count) )
-  					end
-        	else
-  	      	@limit = 4
-  	      	@images = MediaObject.order(:name, :id).where.not(id: selected_images.map(&:id)).where( "lower(name) like ?", "%#{@query}%" ).offset( @offset ).limit( @limit )
-        	end
+  				# if params[:first_load].present?
+  				# 	@images = selected_images
+  				# 	@limit = [4 - selected_images.count, 0].max
+  				# 	if selected_images.count < 4
+  				# 		@images += MediaObject.order(:name, :id).where.not(id: selected_images.map(&:id)).where( "lower(name) like ?", "%#{@query}%" ).offset( @offset ).limit( (4 - selected_images.count) )
+  				# 	end
+      #   	else
+      #   	end
+	      	@limit = 4
+	      	@images = MediaObject.order(:name, :id).where( media_directory: @directory ).where( "lower(name) like ?", "%#{@query}%" ).offset( @offset ).limit( @limit )
 
         	# @images = MediaObject.order(:name, :id).where("lower(name) like ? OR lower(name) like ?", "#{@query}%", "% #{@query}%").with_attached_file.offset( @offset ).limit( @limit )
           @input_type = params[:input_type] || "radio"
@@ -43,7 +47,29 @@ module <%= namespace.to_s.classify %>
           # @offset = @offset.to_i + @images.count
         end
         format.html do
-        	super
+          directory = params[:directory_id].present? ? MediaDirectory.find( params[:directory_id] ) : nil
+          directories = MediaDirectory.where( parent_directory: directory )
+	      	
+		      authorize_resource(resource_class)
+		      search_term = params[:search].to_s.strip
+		      
+		      resources = MediaObject.where( media_directory: directory ).where( "lower(name) like ?", "%#{search_term}%" )
+		      # resources = Administrate::Search.new(scoped_resource,
+		      #                                      dashboard_class,
+		      #                                      search_term).run
+		      resources = apply_collection_includes(resources)
+		      resources = order.apply(resources)
+		      resources = resources.page(params[:_page]).per(records_per_page)
+		      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+		      render locals: {
+		      	directory: directory,
+		      	directories: directories,
+		        resources: resources,
+		        search_term: search_term,
+		        page: page,
+		        show_search_bar: show_search_bar?,
+		      }
         end
       end
     end

@@ -2,6 +2,7 @@ require 'administrate/field/active_storage'
 
 class MediaObject < ApplicationRecord
 
+	belongs_to :media_directory, optional: true
   has_one_attached :file
   validates :file, :presence => true
 
