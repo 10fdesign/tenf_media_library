@@ -1,0 +1,55 @@
+<%#
+# HasMany Show Partial
+
+This partial renders a has_many relationship,
+to be displayed on a resource's show page.
+
+By default, the relationship is rendered
+as a table of the first few associated resources.
+The columns of the table are taken
+from the associated resource class's dashboard.
+
+## Local variables:
+
+- `field`:
+  An instance of [Administrate::Field::HasMany][1].
+  Contains methods to help display a table of associated resources.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasMany
+%>
+
+<%
+
+join_table = "#{field.resource.class.name.downcase}_images".to_sym
+join_symbol = "#{field.resource.class.name.downcase}_id".to_sym
+join_id = field.resource.id
+
+sorted_list = field.resources.includes( join_table ).where( join_table => { join_symbol => join_id }).reorder("#{join_table}.sort_index")
+
+%>
+
+
+<% if field.resources.any? %>
+
+  <%# field.resources.sort_by{
+			|image|
+
+			join_table = Listing.reflect_on_association(field.attribute).options[:through]
+			join_object = join_table.to_s.classify.constantize
+			joiner = join_object.where(listing_id: field.resource.id, image_id: image.id)
+
+			joiner.first.sort_index.present? ? joiner.first.sort_index : -1
+			}
+	%>
+
+	<% sorted_list.each do |resource| %>
+    <% if resource.is_a?(MediaObject) && resource.file.attached? %>
+		<%= image_tag url_for(resource.file.variant(resize_to_fit: MediaObject::THUMBNAIL)), height: '100' %>
+    <% else %>
+      <%= content_tag :span, resource.name %>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <%= t("administrate.fields.has_many.none", default: "–") %>
+<% end %>

@@ -1,0 +1,127 @@
+module <%= namespace.to_s.classify %>
+  class MediaObjectsController < <%= namespace.to_s.classify %>::ApplicationController
+
+    def index
+      respond_to do |format|
+        format.js do
+          @join_table = params[:join_table]
+          @join_symbol = params[:join_symbol]
+          @join_id = params[:join_id]
+  				@selected_image_id = params[:selected_image_id]
+
+  				@field_name = params[:field_name]
+
+          @query = params[:query].to_s.downcase
+
+          # 12-17-2020 :  I changed this from joins to includes, because it wasn't working with the new event_images for some reason
+          # 							but I am not sure that this wasn't a fix for something, so...
+  				# selected_images = MediaObject.joins( @join_table ).where( @join_table => { @join_symbol => @join_id })
+  				if @join_id.present?
+  					selected_images = MediaObject.includes( @join_table ).where( @join_table => { @join_symbol => @join_id }).where( "lower(name) like ?", "%#{@query}%" )
+  				elsif @selected_image_id.present?
+  					selected_images = MediaObject.where( id: @selected_image_id ).where( "lower(name) like ?", "%#{@query}%" )
+  				else
+  					selected_images = MediaObject.none
+  				end
+
+          @offset = params[:offset].to_i || 0
+  				if params[:first_load].present?
+  					@images = selected_images
+  					@limit = [4 - selected_images.count, 0].max
+  					if selected_images.count < 4
+  						@images += MediaObject.order(:name, :id).where.not(id: selected_images.map(&:id)).where( "lower(name) like ?", "%#{@query}%" ).offset( @offset ).limit( (4 - selected_images.count) )
+  					end
+        	else
+  	      	@limit = 4
+  	      	@images = MediaObject.order(:name, :id).where.not(id: selected_images.map(&:id)).where( "lower(name) like ?", "%#{@query}%" ).offset( @offset ).limit( @limit )
+        	end
+
+        	# @images = MediaObject.order(:name, :id).where("lower(name) like ? OR lower(name) like ?", "#{@query}%", "% #{@query}%").with_attached_file.offset( @offset ).limit( @limit )
+          @input_type = params[:input_type] || "radio"
+          @modal_uid = params[:modal_uid] || "no-uid"
+          @parent_selector = params[:parent_selector] || "no-parent-selector"
+          # @offset = @offset.to_i + @images.count
+        end
+        format.html do
+        	super
+        end
+      end
+    end
+
+    def add
+    	@input_type = params[:input_type].present? ? params[:input_type] : "radio"
+    	@image = MediaObject.new
+    end
+
+    def upload
+    	@field_name = params[:image][:field_name]
+      @input_type = params[:image][:input_type].present? ? params[:image][:input_type] : "radio"
+  		if image_params[:file].size > 1000000 # 1 MB
+  			@error = "File too large: image must be less than 1MB in size."
+  		end
+      respond_to do |format|
+  	    format.js do
+  	    	if @error
+  	    	else
+  		    	@image = MediaObject.create( image_params )
+  		    end
+        end
+        format.html do
+  	      super
+  	    end
+      end
+  	end
+
+    private
+
+    def image_params
+    	params.require(:image).permit(
+    		:name, :file
+    	)
+    end
+
+    # def update
+    #   super
+    #   send_foo_updated_email(requested_resource)
+    # end
+
+    # Override this method to specify custom lookup behavior.
+    # This will be used to set the resource for the `show`, `edit`, and `update`
+    # actions.
+    #
+    # def find_resource(param)
+    #   Foo.find_by!(slug: param)
+    # end
+
+    # The result of this lookup will be available as `requested_resource`
+
+    def records_per_page
+    	params[:per_page] || 10
+    end
+
+    # Override this if you have certain roles that require a subset
+    # this will be used to set the records shown on the `index` action.
+    #
+    # def scoped_resource
+    #   if current_user.super_admin?
+    #     resource_class
+    #   else
+    #     resource_class.with_less_stuff
+    #   end
+    # end
+
+    # Override `resource_params` if you want to transform the submitted
+    # data before it's persisted. For example, the following would turn all
+    # empty values into nil values. It uses other APIs such as `resource_class`
+    # and `dashboard`:
+    #
+    # def resource_params
+    #   params.require(resource_class.model_name.param_key).
+    #     permit(dashboard.permitted_attributes).
+    #     transform_values { |value| value == "" ? nil : value }
+    # end
+
+    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
+    # for more information
+  end
+end

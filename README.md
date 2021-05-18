@@ -1,6 +1,10 @@
 # TenfMediaLibrary
 Short description and motivation.
 
+
+TODO:
+ set up routing on library generation
+
 ## Usage
 How to use my plugin.
 
@@ -20,6 +24,7 @@ Or install it yourself as:
 ```bash
 $ gem install tenf_media_library
 ```
+
 
 ## Contributing
 Contribution directions go here.

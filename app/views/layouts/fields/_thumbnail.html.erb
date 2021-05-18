@@ -1,0 +1,10 @@
+<div class='col-sm-3 tenf-image-thumbnail-column active' id="image_<%= image.id %>" >
+	<% if local_assigns[:input_type] %>
+		<input type="<%= input_type %>" class="select-image-input" id="<%= field_name %>_select_image_<%= image.id %>" name="<%= field_name %>_select_image" class="tenf-hidden" data-name="<%= image.name %>" data-id="<%= image.id %>" data-url="<%= url_for image.file.variant(resize_to_fill: MediaObject::SMALLTILE) if image.file.attached? %>"<%= ' checked' if @listing.present? and @listing.images.exists? image.id %>>
+	<% end %>
+	<label for="<%= field_name %>_select_image_<%= image.id %>" class="select-image-label">
+		<div data-id="<%= image.id %>" data-name="<%= image.name %>" data-url="<%= url_for image.file.variant(resize_to_fill: MediaObject::SMALLTILE) if image.file.attached? %>" class="tenf-image" style="background-image: url(' <%= url_for image.file.variant(resize_to_fill: MediaObject::SMALLTILE) if image.file.attached? %>')">
+		</div>
+	</label>
+	<p class="image-name"><%= image.name %></p>
+</div>

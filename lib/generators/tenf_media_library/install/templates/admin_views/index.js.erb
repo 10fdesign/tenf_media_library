@@ -1,0 +1,30 @@
+var modal = $('#<%= @modal_uid %>');
+var parent = modal.closest('<%= @parent_selector %>');
+
+// console.log('<%= @modal_uid %>, <%= @parent_selector %>');
+
+parent.find(".modal-images").append(
+	"<% @images.each_with_index do |image, index| %><%= j (render partial: '/layouts/fields/thumbnail', locals: { image: image, index: index, field_name: @field_name, input_type: @input_type, listing: @listing } ) %><% end %>"
+);
+
+<% if !@listing && @input_type == 'checkbox' %>
+	parent.find(".modal-images .tenf-image-thumbnail-column input").each(function() {
+		var select = parent.find('select');
+
+		if (select.find(`option[value="${$(this).data('id')}"]:selected`).length > 0) {
+			$(this).prop('checked', true);
+		}
+	});
+<% end %>
+
+<% if !@listing && @input_type == 'radio' %>
+	parent.find(".modal-images .tenf-image-thumbnail-column input").each(function() {
+		var select = parent.find('select');
+
+		if (select.val() == $(this).data('id') ) {
+			$(this).prop('checked', true);
+		}
+	});
+<% end %>
+
+modal.find(".images-load-more").replaceWith("<%= j ( render partial: '/layouts/fields/load_more', locals: { input_type: @input_type, field_name: @field_name, offset: @offset + @limit, modal_uid: @modal_uid, parent_selector: @parent_selector, query: @query, join_table: @join_table, join_id: @join_id, join_symbol: @join_symbol, selected_image_id: @selected_image_id }) %>");

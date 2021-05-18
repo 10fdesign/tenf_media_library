@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary     = "10F Media Library"
   spec.description = "10F's media library gem"
   spec.license     = "MIT"
-  
+
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -21,8 +21,10 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.5"
-  spec.add_dependency "administrate"
-  spec.add_dependency "administrate-field-active_storage"
-  spec.add_dependency "image_processing"
+  spec.add_dependency 'rails', "~> 6.0.3", ">= 6.0.3.5"
+  spec.add_dependency 'administrate'
+  spec.add_dependency 'administrate-field-active_storage'
+  spec.add_dependency 'image_processing'
+  spec.add_dependency 'simple_form'
+
 end

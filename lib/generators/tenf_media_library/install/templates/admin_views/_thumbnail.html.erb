@@ -1,0 +1,13 @@
+<div class='col-sm-3 tenf-image-thumbnail-column' id="image_<%= image.id %>" >
+	<% if local_assigns[:input_type] %>
+		<%= link_to(image, method: "delete", remote: true, data: { confirm: "Are you sure you want to delete this image?" }, class: 'image-delete') do %>
+			<i class="fas fa-times"></i>
+		<% end %>
+		<input type="<%= input_type %>" id="select_image_<%= image.id %>" name="select_image" class="tenf-hidden" data-name="<%= image.name %>" data-id="<%= image.id %>" data-url="<% url_for image.file if image.file.attached? %>">
+	<% end %>
+	<label for="select_image_<%= image.id %>" class="select-image-label">
+		<div data-id="<%= image.id %>" class="media-object-background-image" style="background-image: url( '<%= url_for image.file if image.file.attached? %>' )">
+		</div>
+	</label>
+	<p class="image-name"><%= image.name %></p>
+</div>

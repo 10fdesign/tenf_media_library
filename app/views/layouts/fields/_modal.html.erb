@@ -1,0 +1,38 @@
+<div id="<%= modal_uid %>" class="image-modal modal fade" tabindex="-1" role="dialog" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+					<div class="row">
+						<div class="col-sm-6">
+		          <h3 class='h3'>Add <%= input_type == "radio" ? "An Image" : "Images" %></h3>
+						</div>
+						<div class="col-sm-6 text-right images-search-form-wrapper">
+							<%= render partial: "layouts/fields/search", locals: { query: "", join_id: join_id, join_table: join_table, join_symbol: join_symbol, input_type: input_type, offset: 4, field_name: field_name || :image_id, modal_uid: modal_uid, parent_selector: parent_selector, selected_image_id: selected_image_id } %>      			
+						</div>
+					</div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row modal-images">
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+          	<%= render partial: "layouts/fields/load_more", locals: { query: "", join_id: join_id, join_table: join_table, join_symbol: join_symbol, input_type: input_type, offset: 4, field_name: field_name || :image_id, modal_uid: modal_uid, parent_selector: parent_selector, selected_image_id: selected_image_id } %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      	<div class="row">
+      		<div class="col-sm-6">
+	          <%= render partial: "layouts/fields/upload", locals: { input_type: input_type } %>
+      		</div>
+      		<div class="col-sm-6 text-right">
+		        <button class="btn btn-primary close-image-modal select-image" data-toggle="modal" data-target="#<%= modal_uid %>">Confirm</button>
+		        <button class="btn btn-secondary close-image-modal cancel-image" data-toggle="modal" data-target="#<%= modal_uid %>">Cancel</button>
+      		</div>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
