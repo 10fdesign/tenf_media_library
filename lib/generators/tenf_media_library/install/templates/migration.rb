@@ -23,5 +23,8 @@ class CreateMediaLibraryTables < ActiveRecord::Migration<%= migration_version %>
     # Directories with the same parent directory cannot have the same name
     add_index :media_directories, [:name, :parent_directory], unique: true
 
+    # Media Objects [can] live in a directory :)
+    add_reference :media_objects, :media_directory, null: true, foreign_key: true
+
   end
 end
