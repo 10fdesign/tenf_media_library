@@ -1,3 +1,3 @@
 module TenfMediaLibrary
-  VERSION = '0.1.8'
+  VERSION = '0.1.15'
 end

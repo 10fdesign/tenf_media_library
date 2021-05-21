@@ -1,0 +1,4 @@
+<div class="form form-inline">
+	<input type="text" placeholder="Search Image Name..." name="images-search" class="form-control images-search">
+	<%= link_to "Search", admin_media_objects_path( query: "", offset: 0, modal_uid: modal_uid, parent_selector: parent_selector, input_type: input_type ), remote: true, class: "btn btn-light images-search-button" %>
+</div>
