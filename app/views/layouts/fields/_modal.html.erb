@@ -14,11 +14,14 @@
         </div>
       </div>
       <div class="modal-body">
+      	<div class="row modal-directories">
+      		
+      	</div>
         <div class="row modal-images">
         </div>
         <div class="row">
           <div class="col-sm-12">
-          	<%= render partial: "layouts/fields/load_more", locals: { query: "", join_id: join_id, join_table: join_table, join_symbol: join_symbol, input_type: input_type, offset: 4, field_name: field_name || :image_id, modal_uid: modal_uid, parent_selector: parent_selector, selected_image_id: selected_image_id } %>
+          	<%# render partial: "layouts/fields/load_more", locals: { query: "", join_id: join_id, join_table: join_table, join_symbol: join_symbol, input_type: input_type, offset: 4, field_name: field_name || :image_id, modal_uid: modal_uid, parent_selector: parent_selector, selected_image_id: selected_image_id } %>
           </div>
         </div>
       </div>
@@ -28,8 +31,8 @@
 	          <%= render partial: "layouts/fields/upload", locals: { input_type: input_type } %>
       		</div>
       		<div class="col-sm-6 text-right">
-		        <button class="btn btn-primary close-image-modal select-image" data-toggle="modal" data-target="#<%= modal_uid %>">Confirm</button>
-		        <button class="btn btn-secondary close-image-modal cancel-image" data-toggle="modal" data-target="#<%= modal_uid %>">Cancel</button>
+		        <a class="btn btn-primary close-image-modal select-image" data-bs-toggle="modal" data-bs-target="#<%= modal_uid %>">Confirm</a>
+		        <a class="btn btn-secondary close-image-modal cancel-image" data-bs-toggle="modal" data-bs-target="#<%= modal_uid %>">Cancel</a>
       		</div>
       	</div>
       </div>

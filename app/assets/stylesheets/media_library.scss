@@ -22,3 +22,15 @@ label.select-image-label {
 	padding-bottom: 66%;
 	background-size: cover;
 }
+
+// Image Modal
+.image-modal .modal-footer, .image-modal .modal-header {
+	display: block;
+}
+.image-modal .modal-footer .text-right {
+	display: flex;
+	flex-direction: row-reverse;
+}
+.image-modal .modal-footer .text-right a {
+	margin-left: 10px;
+}

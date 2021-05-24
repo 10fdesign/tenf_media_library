@@ -63,9 +63,10 @@ $(document).ready( function (e) {
   $(".field-unit--many-media-field .add-image").click( function (e) {
     var parent = $(this).closest('.field-unit--many-media-field');
     var modal_image_display = parent.find('.modal-images');
+    modal_image_display.empty();
+    console.log( parent, modal_image_display );
 
     e.preventDefault();
-    modal_image_display.empty();
   });
 
 

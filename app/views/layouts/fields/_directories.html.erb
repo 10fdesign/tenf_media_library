@@ -1,0 +1,23 @@
+<% unless directory.nil? %>
+	<div class="col-sm-3">
+		<div class="card">
+			<div class="card-body">
+				<p>
+					<%= link_to "<<", [namespace, resource_name.pluralize.gsub("/", "_").to_sym, { directory_id: directory.parent_directory_id } ] %>
+				</p>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+<% directories.each do |directory| %>
+	<div class="col-sm-3">
+		<div class="card">
+			<div class="card-body">
+		  	<p>
+		  		<%= link_to directory.name, admin_media_objects_path( directory_id: directory.id ) %>
+		  	</p>
+			</div>
+		</div>
+	</div>
+<% end %>

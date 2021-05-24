@@ -6,19 +6,19 @@ require 'administrate/field/active_storage'
 module TenfMediaLibrary
   class Engine < Rails::Engine
     initializer 'administrate.assets.precompile' do |app|
-      # app.config.assets.precompile << 'bootstrap.js' if app.config.respond_to? :assets
-      # Administrate::Engine.add_javascript 'bootstrap.js' if defined?(Administrate::Engine)
-      app.config.assets.precompile << 'tenf_media_library/tenf_media_library.js' if app.config.respond_to? :assets
-      Administrate::Engine.add_javascript(
-        "tenf_media_library/tenf_media_library",
-      )
+      app.config.assets.precompile << 'bootstrap.js' if app.config.respond_to? :assets
+      Administrate::Engine.add_javascript 'bootstrap.js' if defined?(Administrate::Engine)
+      # app.config.assets.precompile << 'tenf_media_library/tenf_media_library.js' if app.config.respond_to? :assets
+      # Administrate::Engine.add_javascript(
+      #   "tenf_media_library/tenf_media_library",
+      # )
 
       # app.config.assets.precompile << 'jquery-ui.min.js' if app.config.respond_to? :assets
       # Administrate::Engine.add_javascript 'jquery-ui.min.js' if defined?(Administrate::Engine)
 
-      # app.config.assets.precompile << 'administrate/many_media_objects_field.js' if app.config.respond_to? :assets
-      # Administrate::Engine.add_javascript 'administrate/many_media_objects_field.js' if defined?(Administrate::Engine)
-    end
+	    app.config.assets.precompile << 'administrate/many_media_objects_field.js' if app.config.respond_to? :assets
+	      Administrate::Engine.add_javascript 'administrate/many_media_objects_field.js' if defined?(Administrate::Engine)
+	    end
 
     initializer "administrate.assets.precompile" do |app|
       app.config.assets.precompile += %w( media_library.css )

@@ -50,7 +50,7 @@ sorted_ids = sorted_list.map(&:id)
 	<div class="many_image_field">
 		<div class="row">
 			<div class="col-sm-12">
-			    <%= link_to( admin_media_objects_path( input_type: "checkbox", first_load: true, join_table: join_table, join_symbol: join_symbol, join_id: join_id, modal_uid: modal_uid, parent_selector: '.field-unit--many-media-field' ), remote: true, data: { toggle: "modal", target: "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
+			    <%= link_to( admin_media_objects_path( input_type: "checkbox", first_load: true, join_table: join_table, join_symbol: join_symbol, join_id: join_id, modal_uid: modal_uid, parent_selector: '.field-unit--many-media-field' ), remote: true, data: { "bs-toggle" => "modal", "bs-target": "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
 			      <i class="fas fa-plus"></i> Add Image
 			    <% end %>
 			</div>
@@ -75,4 +75,17 @@ sorted_ids = sorted_list.map(&:id)
 			</div>
 		</div>
 	</div>
+</div>
+
+<div id="imageUploadModal" class="modal fade" tabindex="-1" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+        	<h1>Upload An Image</h1>
+        </div>
+      </div>
+      <div class="modal-body" id="upload-image"></div>
+    </div>
+  </div>
 </div>
