@@ -3,7 +3,7 @@
 		<div class="card">
 			<div class="card-body">
 				<p>
-					<%= link_to "<<", [namespace, resource_name.pluralize.gsub("/", "_").to_sym, { directory_id: directory.parent_directory_id } ] %>
+					<%= link_to "<<", [namespace, resource_name.pluralize.gsub("/", "_").to_sym, { directory_id: directory.parent_directory_id, parent_selector: @parent_selector, modal_uid: @modal_uid } ], remote: remote %>
 				</p>
 			</div>
 		</div>
@@ -15,7 +15,7 @@
 		<div class="card">
 			<div class="card-body">
 		  	<p>
-		  		<%= link_to directory.name, admin_media_objects_path( directory_id: directory.id ) %>
+		  		<%= link_to directory.name, admin_media_objects_path( directory_id: directory.id, parent_selector: @parent_selector, modal_uid: @modal_uid ), remote: remote %>
 		  	</p>
 			</div>
 		</div>

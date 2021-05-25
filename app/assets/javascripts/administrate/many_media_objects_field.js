@@ -3,21 +3,18 @@ $(document).ready( function (e) {
     e.preventDefault();
     var parent = $(this).closest('.field-unit--many-media-field');
     var modal = parent.find('.image-modal').first();
-    var image_display = parent.find('.listing-images');
+    var image_display = parent.find('.listing-images'); // should probably be renamed, though it is a 'list' of images
     var modal_image_display = parent.find('.modal-images');
     var select = parent.find('select');
-
-    select.empty();
-    image_display.find('img').remove();
-
-    modal.find('.tenf-image-thumbnail-column').each( function() { 
-      var image = $(this).find('.tenf-image');
+    
+    modal.find('.modal-images .col-sm-3').each( function() { 
+      var image = $(this).find('.select-media-object-input');
       var image_id = image.data('id');
       var image_style = image.data('url');
       var image_div = `<img src='${image_style};' height='100' data-image-id='${image_id}' /> `;
 
-      var image_name = $(this).find('.tenf-image').data('name');
-      var selected = ($(this).find('input.select-image-input').is(':checked') ? ' selected="selected"' : '');
+      var image_name = image.data('name');
+      var selected = (image.is(':checked') ? ' selected="selected"' : '');
       select.append(`<option ${selected}value="${image_id}">${image_name}</option>`);
 
       if (selected) {
