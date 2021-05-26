@@ -10,12 +10,13 @@ modal_uid = 'image-modal-' + uid
 
 # sorted_list = field.data.includes( join_table ).where( join_table => { join_symbol => join_id }).order("#{join_table}.sort_index")
 
-sorted_list = field.resource.media_objects
+sorted_list = field.resources
+#sorted_list = field.resource.media_objects
 sorted_ids = sorted_list.map(&:id)
 
 %>
 
-<%= render partial: "layouts/fields/modal", locals: { input_type: "checkbox", join_id: join_id, join_table: join_table, join_symbol: join_symbol, field_name: @field_name || :image_id, modal_uid: modal_uid, parent_selector:  '.field-unit--many-media-field', selected_image_id: nil } %>
+<%= render partial: "layouts/fields/modal", locals: { input_type: "checkbox", field_name: @field_name || :image_id, modal_uid: modal_uid, parent_selector:  '.field-unit--many-media-field', selected_image_id: nil } %>
 
 <div class="field-unit__label">
   <%= f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}" %>
@@ -50,7 +51,7 @@ sorted_ids = sorted_list.map(&:id)
 	<div class="many_image_field">
 		<div class="row">
 			<div class="col-sm-12">
-			    <%= link_to( admin_media_objects_path( input_type: "checkbox", first_load: true, join_table: join_table, join_symbol: join_symbol, join_id: join_id, modal_uid: modal_uid, parent_selector: '.field-unit--many-media-field' ), remote: true, data: { "bs-toggle" => "modal", "bs-target": "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
+			    <%= link_to( admin_media_objects_path( input_type: "checkbox", first_load: true, modal_uid: modal_uid, parent_selector: '.field-unit--many-media-field' ), remote: true, data: { "bs-toggle" => "modal", "bs-target": "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
 			      <i class="fas fa-plus"></i> Add Image
 			    <% end %>
 			</div>
