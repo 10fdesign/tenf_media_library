@@ -8,7 +8,7 @@
 		          <h3 class='h3'>Add <%= input_type == "radio" ? "An Image" : "Images" %></h3>
 						</div>
 						<div class="col-sm-6 text-right images-search-form-wrapper">
-							<%= render partial: "layouts/fields/search", locals: { query: "", join_id: join_id, join_table: join_table, join_symbol: join_symbol, input_type: input_type, offset: 4, field_name: field_name || :image_id, modal_uid: modal_uid, parent_selector: parent_selector, selected_image_id: selected_image_id } %>      			
+							<%= render partial: "layouts/fields/search", locals: { query: "", input_type: input_type, offset: 4, field_name: field_name || :image_id, modal_uid: modal_uid, parent_selector: parent_selector, selected_image_id: selected_image_id } %>      			
 						</div>
 					</div>
         </div>
