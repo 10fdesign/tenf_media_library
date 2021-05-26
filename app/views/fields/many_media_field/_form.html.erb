@@ -4,14 +4,14 @@
 
 modal_uid = 'image-modal-' + uid
 
-join_table = "#{field.resource.class.name.pluralize.downcase}_media_objects".to_sym
-join_symbol = "#{field.resource.class.name.downcase}_id".to_sym
-join_id = field.resource.id
+# join_table = "#{field.resource.class.name.pluralize.downcase}_media_objects".to_sym
+# join_symbol = "#{field.resource.class.name.downcase}_id".to_sym
+# join_id = field.resource.id
 
 # sorted_list = field.data.includes( join_table ).where( join_table => { join_symbol => join_id }).order("#{join_table}.sort_index")
 
-sorted_list = field.resource.media_objects
-sorted_ids = sorted_list.map(&:id)
+# sorted_list = field.resource.media_objects
+# sorted_ids = sorted_list.map(&:id)
 
 %>
 
