@@ -1,6 +1,6 @@
 // As far as I can tell, this file is never called or used
 
-//= require jquery-ui
-//= require jquery-ui/ui/widgets/sortable
+//= require jquery-ui-dist
+//  require jquery-ui/ui/widgets/sortable
 //= require bootstrap
 //= require administrate/many_media_objects_field
