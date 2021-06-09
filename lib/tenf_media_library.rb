@@ -8,6 +8,19 @@ module TenfMediaLibrary
     initializer 'administrate.assets.precompile' do |app|
       app.config.assets.precompile << 'bootstrap.js' if app.config.respond_to? :assets
       Administrate::Engine.add_javascript 'bootstrap.js' if defined?(Administrate::Engine)
+
+      app.config.assets.precompile << 'jquery-ui.js' if app.config.respond_to? :assets
+      Administrate::Engine.add_javascript 'jquery-ui.js' if defined?(Administrate::Engine)
+
+			app.config.assets.precompile << 'jquery-ui/ui/widgets/mouse.js' if app.config.respond_to? :assets
+      Administrate::Engine.add_javascript 'jquery-ui/ui/widgets/mouse.js' if defined?(Administrate::Engine)
+
+			app.config.assets.precompile << 'jquery-ui/ui/data.js' if app.config.respond_to? :assets
+      Administrate::Engine.add_javascript 'jquery-ui/ui/data.js' if defined?(Administrate::Engine)
+
+			app.config.assets.precompile << 'jquery-ui/ui/widgets/sortable.js' if app.config.respond_to? :assets
+      Administrate::Engine.add_javascript 'jquery-ui/ui/widgets/sortable.js' if defined?(Administrate::Engine)
+
       # app.config.assets.precompile << 'tenf_media_library/tenf_media_library.js' if app.config.respond_to? :assets
       # Administrate::Engine.add_javascript(
       #   "tenf_media_library/tenf_media_library",

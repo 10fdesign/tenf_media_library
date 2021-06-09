@@ -1,3 +1,5 @@
+// As far as I can tell, this file is never called or used
+
 //= require jquery-ui
 //= require jquery-ui/ui/widgets/sortable
 //= require bootstrap

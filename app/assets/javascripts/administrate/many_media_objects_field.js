@@ -84,6 +84,7 @@ $(document).ready( function (e) {
 
   $('.new-listing-images .listing-images').sortable({
   	update: function( event, ui ) {
+  		console.log("updating!");
     	var parent = $(this).closest('.field-unit--many-media-field');
 
     	var select = parent.find('select');
