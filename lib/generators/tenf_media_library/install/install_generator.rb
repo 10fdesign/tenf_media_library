@@ -58,7 +58,7 @@ module TenfMediaLibrary
       end
 
       def add_bootstrap_to_yarn
-        system "yarn add bootstrap @popperjs/core jquery jquery-ui"
+        system "yarn add bootstrap @popperjs/core jquery jquery-ui-dist"
       end
 
       private

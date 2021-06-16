@@ -34,3 +34,12 @@ label.select-image-label {
 .image-modal .modal-footer .text-right a {
 	margin-left: 10px;
 }
+
+.modal-backdrop.fade.show:nth-child(1) {
+  z-index: 1060;
+  background-color: red;
+}
+
+div#imageUploadModal {
+  z-index: 1061;
+}
