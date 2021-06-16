@@ -1,8 +1,11 @@
-$(document).ready( function (e) {
-  $(".field-unit--many-media-field .select-image").click( function (e) {
+// $(document).ready( function (e) {
+function setup_media_library_modal() {
+
+  $(".image-modal .select-image").click( function (e) {
     e.preventDefault();
-    var parent = $(this).closest('.field-unit--many-media-field');
-    var modal = parent.find('.image-modal').first();
+    var parent = $( $(this).data('parent-selector') );
+    console.log("ok", parent, $(this).data('parent-selector') );
+    var modal = $('.image-modal').first();
     var image_display = parent.find('.listing-images'); // should probably be renamed, though it is a 'list' of images
     var modal_image_display = parent.find('.modal-images');
     var select = parent.find('select');
@@ -118,4 +121,4 @@ $(document).ready( function (e) {
     	select.append(options);
   	}
   });
-});
+};
