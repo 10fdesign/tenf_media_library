@@ -20,7 +20,7 @@ sorted_ids = sorted_list.map(&:id)
   <%= f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}" %>
 </div>
 <div class="field-unit__field field-<%= field.name %>">
-  <%= f.select(field.attribute_key, nil, {}, multiple: true) do %>
+  <%= f.select(field.attribute_key, nil, {}, multiple: true, class: "tenf-media-library-select" ) do %>
     <%= options_for_select(field.associated_resource_options.sort_by{
 		|image|
 

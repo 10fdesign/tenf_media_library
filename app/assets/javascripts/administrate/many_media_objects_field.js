@@ -4,7 +4,6 @@ function setup_media_library_modal() {
   $(".image-modal .select-image").click( function (e) {
     e.preventDefault();
     var parent = $( $(this).data('parent-selector') );
-    console.log("ok", parent, $(this).data('parent-selector') );
     var modal = $('.image-modal').first();
     var image_display = parent.find('.listing-images'); // should probably be renamed, though it is a 'list' of images
     var modal_image_display = parent.find('.modal-images');
@@ -29,6 +28,14 @@ function setup_media_library_modal() {
 
   });
 
+  $(".media-object-remove").click( function (e) {
+  	e.preventDefault();
+  	var parent = $(this).closest(".field-unit");
+  	var select = parent.find("select");
+  	var image_id = $(this).data("id");
+  	select.find("option[value=" + image_id + "]").attr("selected", false);
+  	$(this).closest(".media-thumbnail-container").remove();
+  });
 
   $(".field-unit--many-media-field .images-search-button").click( function (e) {
     var parent = $(this).closest('.field-unit--many-media-field');
@@ -122,3 +129,5 @@ function setup_media_library_modal() {
   	}
   });
 };
+
+setup_media_library_modal();
