@@ -14,10 +14,18 @@
 	<div class="col-sm-3">
 		<div class="card">
 			<div class="card-body">
-		  	<p>
-		  		<%= link_to directory.name, admin_media_objects_path( page: 1, directory_id: directory.id, parent_selector: @parent_selector, modal_uid: @modal_uid ), remote: remote %>
-		  	</p>
+	  		<%= link_to( admin_media_objects_path( page: 1, directory_id: directory.id, parent_selector: @parent_selector, modal_uid: @modal_uid ), remote: remote ) do %>
+	  			<i class="fas fa-folder"></i> <%= directory.name %>
+	  		<% end %>
 			</div>
 		</div>
 	</div>
 <% end %>
+
+<div class="col-sm-3">
+	<div class="card">
+		<div class="card-body">
+				<%= render partial: "layouts/fields/new_directory", locals: { directory: directory } %>
+		</div>
+	</div>
+</div>

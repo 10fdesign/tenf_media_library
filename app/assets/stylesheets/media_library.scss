@@ -1,5 +1,5 @@
 @import "bootstrap/scss/bootstrap";
-
+@import '@fortawesome/fontawesome-free/css/all';
 
 .media-object-background-image {
   width: 100%;
@@ -91,4 +91,18 @@ span.media-object-name {
   padding: 4px 10px;
   border-radius: 4px;
   position: absolute;
+}
+
+.media-object-modal-search {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+.media-object-modal-search input {
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.media-object-modal-search a {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
