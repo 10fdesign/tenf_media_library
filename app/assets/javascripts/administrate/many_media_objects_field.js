@@ -1,8 +1,10 @@
-$(document).ready( function (e) {
-  $(".field-unit--many-media-field .select-image").click( function (e) {
+// $(document).ready( function (e) {
+function setup_media_library_modal() {
+
+  $(".image-modal .select-image").off('click').click( function (e) {
     e.preventDefault();
-    var parent = $(this).closest('.field-unit--many-media-field');
-    var modal = parent.find('.image-modal').first();
+    var parent = $( $(this).data('parent-selector') );
+    var modal = $('.image-modal').first();
     var image_display = parent.find('.listing-images'); // should probably be renamed, though it is a 'list' of images
     var modal_image_display = parent.find('.modal-images');
     var select = parent.find('select');
@@ -11,7 +13,7 @@ $(document).ready( function (e) {
       var image = $(this).find('.select-media-object-input');
       var image_id = image.data('id');
       var image_style = image.data('url');
-      var image_div = `<img src='${image_style};' height='100' data-image-id='${image_id}' /> `;
+      var image_div = `<div class="media-thumbnail-container"><img src='${image_style};' height='100' data-image-id='${image_id}' /><a class="btn btn-sm btn-danger media-object-remove" data-id="${image_id}"><i class="fas fa-times"></i></a></div>`;
 
       var image_name = image.data('name');
       var selected = (image.is(':checked') ? ' selected="selected"' : '');
@@ -20,51 +22,58 @@ $(document).ready( function (e) {
       if (selected) {
         image_display.append(image_div);
       }
+      $(".media-object-remove").click( remove_media_object );
+
     });
 
     modal_image_display.empty();
-
   });
 
+  var remove_media_object = function (e) {
+  	e.preventDefault();
+  	var parent = $(this).closest(".field-unit");
+  	var select = parent.find("select");
+  	var image_id = $(this).data("id");
+  	select.find("option[value=" + image_id + "]").attr("selected", false);
+  	$(this).closest(".media-thumbnail-container").remove();
+  }
 
-  $(".field-unit--many-media-field .images-search-button").click( function (e) {
-    var parent = $(this).closest('.field-unit--many-media-field');
-    var modal_image_display = parent.find('.modal-images');
-    modal_image_display.empty();
+  // $(".media-object-remove").click( remove_media_object );
+
+  $(".images-search-button").off('click').click( function (e) {
+    $('.modal-images').empty();
   });
 
-  $('.field-unit--many-media-field input.images-search').on('input', function (e) {
-  	var link = $(this).parent().find(".images-search-button");
+  $('input.images-search').off('input').on('input', function (e) {
+  	var link = $(".images-search-button");
   	var href = link.attr("href");
-  	href = href.replace(/query=(\w*)/, "query=" + $(this).val() );
+  	href = href.replace(/search=(.*)/, "search=" + $(this).val() );
   	link.attr("href", href);
   });
 
-	$('.field-unit--many-media-field input.images-search').on('keydown', function (e) {
+	$('input.images-search').off('keyup').on( 'keyup', function (e) {
 		if ( e.keyCode == 13 ) {
 			e.preventDefault();
-	    var parent = $(this).closest('.field-unit--many-media-field');
-	    var modal_image_display = parent.find('.modal-images');
-	    modal_image_display.empty();
+	    $('.modal-images').empty();
 
-			var link = $($(this).parent().find(".images-search-button")[0]);
-			$.get( link.attr('href') );
+			var link = $(".images-search-button");
+			$.get( link.attr('href'), { format: "js" } );
 		}
 	});
 
-  $(".field-unit--many-media-field .cancel-image").click( function (e) {
-    e.preventDefault();
-  });
+  // $(".field-unit--many-media-field .cancel-image").click( function (e) {
+  //   e.preventDefault();
+  // });
 
 
-  $(".field-unit--many-media-field .add-image").click( function (e) {
-    var parent = $(this).closest('.field-unit--many-media-field');
-    var modal_image_display = parent.find('.modal-images');
-    modal_image_display.empty();
-    console.log( parent, modal_image_display );
+  // $(".field-unit--many-media-field .add-image").click( function (e) {
+  //   var parent = $(this).closest('.field-unit--many-media-field');
+  //   var modal_image_display = parent.find('.modal-images');
+  //   modal_image_display.empty();
+  //   console.log( parent, modal_image_display );
 
-    e.preventDefault();
-  });
+  //   e.preventDefault();
+  // });
 
 
   // $(".field-unit--many-media-field .images-load-more").click(function (){
@@ -118,4 +127,6 @@ $(document).ready( function (e) {
     	select.append(options);
   	}
   });
-});
+};
+
+setup_media_library_modal();
