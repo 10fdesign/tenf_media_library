@@ -9,14 +9,14 @@ modal_uid = 'image-modal-' + uid
 
 %>
 
-<%= render partial: "layouts/fields/modal", locals: { input_type: "radio", field_name: @field_name || :image_id, modal_uid: modal_uid, parent_selector:  '.field-unit--many-media-field', selected_image_id: nil } %>
+<%= render partial: "layouts/fields/modal", locals: { input_type: "radio", field_name: field.name, modal_uid: modal_uid, parent_selector:  '.field-unit--single-media-field', selected_image_id: nil } %>
 
 <div class="field-unit__label">
   <%= f.label field.attribute %>
 </div>
 <div class="field-unit__field">
-  <%= f.collection_select field.options[:foreign_key] ? field.options[:foreign_key] : :image_id,
-    Image.all, 
+  <%= f.collection_select field.name,
+    MediaObject.all, 
     :id, 
     :name, 
     { include_blank: true } %>
@@ -29,7 +29,7 @@ modal_uid = 'image-modal-' + uid
             <i class="fas fa-minus"></i> Remove Image
           <% end %>
 
-          <%= link_to( dashboard_images_path( input_type: "radio", selected_image_id: field.data&.id, first_load: true, listing_id: false, field_name: field.name, modal_uid: modal_uid, parent_selector: '.field-unit--one-image-field' ), remote: true, data: { toggle: "modal", target: '#' + modal_uid }, class: "add-image btn btn-sm btn-primary") do %>
+          <%= link_to( admin_media_objects_path( input_type: "radio", selected_image_id: field.data&.id, first_load: true, listing_id: false, field_name: field.name, modal_uid: modal_uid, parent_selector: '.field-unit--one-image-field' ), remote: true, data: { toggle: "modal", target: '#' + modal_uid }, class: "add-image btn btn-sm btn-primary") do %>
             <i class="fas fa-plus"></i> Add Image
           <% end %>
     	</div>
