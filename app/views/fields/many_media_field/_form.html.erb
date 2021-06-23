@@ -4,14 +4,7 @@
 
 modal_uid = 'image-modal-' + uid
 
-# join_table = "#{field.resource.class.name.pluralize.downcase}_media_objects".to_sym
-# join_symbol = "#{field.resource.class.name.downcase}_id".to_sym
-# join_id = field.resource.id
-
-# sorted_list = field.data.includes( join_table ).where( join_table => { join_symbol => join_id }).order("#{join_table}.sort_index")
-
 sorted_list = field.resources
-#sorted_list = field.resource.media_objects
 sorted_ids = sorted_list.map(&:id)
 
 %>
@@ -29,27 +22,13 @@ sorted_ids = sorted_list.map(&:id)
 		else
 			sorted_list.count
 		end
-
-		# if field.resource.images.map(&:id).exclude? image[1]
-		# 	-1
-		# else
-		# 	old_join_table = Listing.reflect_on_association(field.attribute).options[:through]
-		# 	join_object = old_join_table.to_s.classify.constantize
-		# 	begin
-		# 		joiner = join_object.where(listing_id: field.resource.id, image_id: image[1])
-
-		# 		joiner.first.sort_index.present? ? joiner.first.sort_index : -1
-		# 	rescue => error
-		# 		-1
-		# 	end
-		# end
 		}, field.selected_options) %>
   <% end %>
 
 	<div class="many_image_field">
 		<div class="row">
 			<div class="col-sm-12">
-			    <%= link_to( admin_media_objects_path( input_type: "checkbox", first_load: true, modal_uid: modal_uid, parent_selector: "field-#{field.name}" ), remote: true, data: { "bs-toggle" => "modal", "bs-target": "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
+			    <%= link_to( admin_media_objects_path( input_type: "checkbox", modal_uid: modal_uid, parent_selector: "field-#{field.name}" ), remote: true, data: { "bs-toggle" => "modal", "bs-target": "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
 			      <i class="fas fa-plus"></i> Add Image
 			    <% end %>
 			</div>
@@ -60,17 +39,6 @@ sorted_ids = sorted_list.map(&:id)
 				<% sorted_list.each do |image| %>
 			    <%= render partial: "layouts/fields/thumbnail_img", locals: { image: image } %>
 				<% end %>
-				<%# field.data.sort_by{
-					|image|
-
-					join_table = Listing.reflect_on_association(field.attribute).options[:through]
-					join_object = join_table.to_s.classify.constantize
-					joiner = join_object.where(listing_id: field.resource.id, image_id: image.id)
-
-					joiner.first.sort_index.present? ? joiner.first.sort_index : -1
-					}.each do |listing_image| %>
-			    	<%#= render partial: "layouts/fields/thumbnail_img", locals: { listing_image: listing_image } %>
-				<%# end %>
 			</div>
 		</div>
 	</div>
