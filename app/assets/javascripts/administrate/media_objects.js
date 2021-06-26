@@ -9,7 +9,9 @@ function setup_media_library_modal() {
     var modal_image_display = parent.find('.modal-images');
     var select = parent.find('select');
     
-		console.log("ok", parent, select, image_display);    
+		if ( parent.parent(".field-unit").hasClass("field-unit--single-media-field") ) {
+			image_display.empty();
+		}
 
     modal.find('.modal-images .col-sm-3').each( function() { 
       var image = $(this).find('.select-media-object-input');
@@ -63,7 +65,7 @@ function setup_media_library_modal() {
 		}
 	});
 
-  $('.new-listing-images .listing-images').sortable({
+  $('.field-unit--many-media-field .new-listing-images .listing-images').sortable({
   	update: function( event, ui ) {
   		console.log("updating!");
     	var parent = $(this).closest('.field-unit--many-media-field');

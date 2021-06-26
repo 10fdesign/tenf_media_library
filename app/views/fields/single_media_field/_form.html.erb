@@ -11,7 +11,7 @@ modal_uid = 'image-modal-' + uid
 <div class="field-unit__label">
   <%= f.label field.attribute %>
 </div>
-<div class="field-unit__field">
+<div class="field-unit__field field-<%= field.name %>">
   <%= f.collection_select field.permitted_attribute,
     MediaObject.all, 
     :id, 
@@ -21,7 +21,7 @@ modal_uid = 'image-modal-' + uid
   <div class="one_image_field">
   	<div class="row">   
     	<div class="col-sm-12">
-          <%= link_to( admin_media_objects_path( input_type: "radio", listing_id: false, field_name: field.name, modal_uid: modal_uid, parent_selector: '.field-unit--single-media-field' ), remote: true, data: { toggle: "modal", target: '#' + modal_uid }, class: "add-image btn btn-sm btn-primary") do %>
+          <%= link_to( admin_media_objects_path( input_type: "radio", listing_id: false, field_name: field.name, modal_uid: modal_uid, parent_selector: ".field-#{field.name}" ), remote: true, data: { toggle: "modal", target: '#' + modal_uid }, class: "add-image btn btn-sm btn-primary") do %>
             <i class="fas fa-plus"></i> Add Image
           <% end %>
     	</div>
