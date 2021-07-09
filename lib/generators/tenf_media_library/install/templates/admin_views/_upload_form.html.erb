@@ -3,7 +3,7 @@
 	<%= f.text_field :name %>
 	<%= f.label "Alt Text" %>
 	<%= f.text_area :alt_text %>
-	<%= f.file_field :file, accept: 'image/png,image/gif,image/jpeg,image/tiff', class: 'form-control-file' %>
+	<%= f.file_field :file, accept: 'image/png,image/gif,image/jpeg,image/tiff,application/pdf', class: 'form-control-file' %>
 	<%= f.hidden_field :input_type, value: @input_type, as: :hidden %>
 	<%= f.submit "Upload", data: { target: "#imageUploadModal", toggle: "modal" }, id: "image-upload-submit" %>
 <% end %>
