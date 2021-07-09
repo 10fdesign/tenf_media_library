@@ -12,8 +12,8 @@ module TenfMediaLibrary
       app.config.assets.precompile << 'jquery-ui-dist/jquery-ui.js' if app.config.respond_to? :assets
       Administrate::Engine.add_javascript 'jquery-ui-dist/jquery-ui.js' if defined?(Administrate::Engine)
 
-	    app.config.assets.precompile << 'administrate/many_media_objects_field.js' if app.config.respond_to? :assets
-	      Administrate::Engine.add_javascript 'administrate/many_media_objects_field.js' if defined?(Administrate::Engine)
+	    app.config.assets.precompile << 'administrate/media_objects.js' if app.config.respond_to? :assets
+	      Administrate::Engine.add_javascript 'administrate/media_objects.js' if defined?(Administrate::Engine)
 	    end
 
     initializer "administrate.assets.precompile" do |app|

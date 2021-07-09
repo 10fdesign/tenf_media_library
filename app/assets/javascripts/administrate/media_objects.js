@@ -9,6 +9,10 @@ function setup_media_library_modal() {
     var modal_image_display = parent.find('.modal-images');
     var select = parent.find('select');
     
+		if ( parent.parent(".field-unit").hasClass("field-unit--single-media-field") ) {
+			image_display.empty();
+		}
+
     modal.find('.modal-images .col-sm-3').each( function() { 
       var image = $(this).find('.select-media-object-input');
       var image_id = image.data('id');
@@ -38,7 +42,7 @@ function setup_media_library_modal() {
   	$(this).closest(".media-thumbnail-container").remove();
   }
 
-  // $(".media-object-remove").click( remove_media_object );
+  $(".media-object-remove").click( remove_media_object );
 
   $(".images-search-button").off('click').click( function (e) {
     $('.modal-images').empty();
@@ -61,37 +65,7 @@ function setup_media_library_modal() {
 		}
 	});
 
-  // $(".field-unit--many-media-field .cancel-image").click( function (e) {
-  //   e.preventDefault();
-  // });
-
-
-  // $(".field-unit--many-media-field .add-image").click( function (e) {
-  //   var parent = $(this).closest('.field-unit--many-media-field');
-  //   var modal_image_display = parent.find('.modal-images');
-  //   modal_image_display.empty();
-  //   console.log( parent, modal_image_display );
-
-  //   e.preventDefault();
-  // });
-
-
-  // $(".field-unit--many-media-field .images-load-more").click(function (){
-  //   var numberToLoad = 2;
-
-  //   var parent = $(this).closest('.field-unit--many-media-field .image-modal');
-  //   var active_count = parent.find('.tenf-image-thumbnail-column.active').length;
-  //   // console.log(active_count);
-
-  //   var target_count = (numberToLoad - active_count % numberToLoad);
-  //   // console.log(target_count);
-  //   var inactives = parent.find('.tenf-image-thumbnail-column:not(.active)');
-  //   var target_inactives = inactives.slice(0, target_count);
-
-  //   target_inactives.addClass('active');
-  // });
-
-  $('.new-listing-images .listing-images').sortable({
+  $('.field-unit--many-media-field .new-listing-images .listing-images').sortable({
   	update: function( event, ui ) {
   		console.log("updating!");
     	var parent = $(this).closest('.field-unit--many-media-field');
@@ -120,8 +94,6 @@ function setup_media_library_modal() {
 
 
     		select.append(match);
-      		// var selected = ($(this).find('input[name="select_image"]').is(':checked') ? ' selected="selected"' : '');
-      		// select.append(`<option ${selected}value="${image_id}">${image_name}</option>`);
     	});
 
     	select.append(options);
