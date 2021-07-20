@@ -31,6 +31,7 @@ function setup_media_library_modal() {
     });
 
     modal_image_display.empty();
+    $("body").css({ overflow: "normal" });
   });
 
   var remove_media_object = function (e) {
@@ -46,7 +47,7 @@ function setup_media_library_modal() {
 
   $(".images-search-button").off('click').click( function (e) {
     $('.modal-images').empty();
-  });
+  });;
 
   $('input.images-search').off('input').on('input', function (e) {
   	var link = $(".images-search-button");
