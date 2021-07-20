@@ -1,6 +1,11 @@
 // $(document).ready( function (e) {
 function setup_media_library_modal() {
 
+	$(".modal").on("hidden.bs.modal", function () {
+		  $(".modal-backdrop").remove();
+	    $("body").css({ overflow: "show", padding: "unset" });
+	});
+
   $(".image-modal .select-image").off('click').click( function (e) {
     e.preventDefault();
     var parent = $( $(this).data('parent-selector') );
@@ -31,7 +36,6 @@ function setup_media_library_modal() {
     });
 
     modal_image_display.empty();
-    $("body").css({ overflow: "normal" });
   });
 
   var remove_media_object = function (e) {
