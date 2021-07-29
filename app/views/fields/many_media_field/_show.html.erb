@@ -44,7 +44,7 @@ sorted_list = field.resources.includes( join_table ).where( join_table => { join
 
 	<% sorted_list.each do |resource| %>
     <% if resource.is_a?(MediaObject) && resource.file.attached? %>
-		<%= image_tag url_for(resource.file.variant(resize_to_fit: MediaObject::THUMBNAIL)), height: '100' %>
+		<%= image_tag url_for(resource.image.variant(resize_to_fit: MediaObject::THUMBNAIL)), height: '100' %>
     <% else %>
       <%= content_tag :span, resource.name %>
     <% end %>

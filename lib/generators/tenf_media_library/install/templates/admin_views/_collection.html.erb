@@ -23,7 +23,7 @@ to display a collection of resources in an HTML table.
 	  <% resources.each do |resource| %>
 			<div class="col-sm-3">
 		    <% if resource.file && resource.file.attached? %>
-		      <div class="media-object-background-image" style="background: url( '<%= url_for resource.file.variant(resize_to_fill: MediaObject::SMALLTILE) %>' );">
+		      <div class="media-object-background-image" style="background: url( '<%= url_for resource.image.variant(resize_to_fill: MediaObject::SMALLTILE) %>' );">
 
   	        <div class="image-gallery-controls">
 	  	        <% if valid_action? :edit, collection_presenter.resource_name %>
