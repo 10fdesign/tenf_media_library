@@ -22,7 +22,7 @@ modal_uid = 'image-modal-' + uid
   	<div class="row">   
     	<div class="col-sm-12">
           <%= link_to( admin_media_objects_path( input_type: "radio", listing_id: false, field_name: field.name, modal_uid: modal_uid, parent_selector: ".field-#{field.name}" ), remote: true, data: { toggle: "modal", target: '#' + modal_uid }, class: "add-image btn btn-sm btn-primary") do %>
-            <i class="fas fa-plus"></i> Add File
+            + Add File
           <% end %>
     	</div>
   	</div>
