@@ -1,7 +1,7 @@
 <% if image.present? and image.file.attached? %>
 	<div class="media-thumbnail-container">
 		<img data-image-id='<%= image.id %>' src='<%= url_for image.image.variant(resize_to_fit: MediaObject::THUMBNAIL) %>' height='100' />
-		<a href="" class="btn btn-sm btn-danger media-object-remove" data-id="<%= image.id %>" ><i class="fas fa-times"></i></a>
+		<a href="" class="btn btn-sm btn-danger media-object-remove" data-id="<%= image.id %>" >×</a>
 	</div>
 <% else %>
 	<p>No image</p>

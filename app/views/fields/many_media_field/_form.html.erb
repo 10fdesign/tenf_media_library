@@ -29,7 +29,7 @@ sorted_ids = sorted_list.map(&:id)
 		<div class="row">
 			<div class="col-sm-12">
 			    <%= link_to( admin_media_objects_path( input_type: "checkbox", modal_uid: modal_uid, parent_selector: ".field-#{field.name}" ), remote: true, data: { "bs-toggle" => "modal", "bs-target": "#" + modal_uid }, class: "btn btn-sm btn-primary add-image") do %>
-			      <i class="fas fa-plus"></i> Add File
+			      + Add File
 			    <% end %>
 			</div>
 		</div>

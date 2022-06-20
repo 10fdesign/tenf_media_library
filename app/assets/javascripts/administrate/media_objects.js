@@ -22,7 +22,7 @@ function setup_media_library_modal() {
       var image = $(this).find('.select-media-object-input');
       var image_id = image.data('id');
       var image_style = image.data('url');
-      var image_div = `<div class="media-thumbnail-container"><img src='${image_style};' height='100' data-image-id='${image_id}' /><a class="btn btn-sm btn-danger media-object-remove" data-id="${image_id}"><i class="fas fa-times"></i></a></div>`;
+      var image_div = `<div class="media-thumbnail-container"><img src='${image_style};' height='100' data-image-id='${image_id}' /><a class="btn btn-sm btn-danger media-object-remove" data-id="${image_id}">×</a></div>`;
 
       var image_name = image.data('name');
       var selected = (image.is(':checked') ? ' selected="selected"' : '');

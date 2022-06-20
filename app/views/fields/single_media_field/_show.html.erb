@@ -1,4 +1,4 @@
-<% if field.data && field.data.file && field.data.file.attached? %>
+<% if field.data && field.data.image && field.data.image.attached? %>
 	<%= image_tag url_for(field.data.image.variant(resize_to_fit: MediaObject::THUMBNAIL)), height: '100' %> 
 <% else %>
 	<%= 'No image' %>

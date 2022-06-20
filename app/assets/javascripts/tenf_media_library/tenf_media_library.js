@@ -1,4 +1,4 @@
-import "@fortawesome/fontawesome-free/js/all";
+//import "@fortawesome/fontawesome-free/js/all";
 
 // As far as I can tell, this file is never called or used
 
