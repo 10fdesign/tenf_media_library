@@ -2,7 +2,7 @@ require 'administrate/field/active_storage'
 
 class MediaObject < ApplicationRecord
 
-	after_create_commit :handle_pdf
+	after_create_commit :create_variants, :handle_pdf
 
 	belongs_to :media_directory, optional: true
   has_one_attached :file
@@ -51,5 +51,31 @@ class MediaObject < ApplicationRecord
 	    puts "rm_result #{rm_result}"
 	  end
   end
+
+  def create_variants
+		image.analyze
+		possible_image_widths = [
+			64,
+			128,
+			256,
+			512,
+			768,
+			1024,
+			1536,
+			2048,
+		]
+		img_width = image.blob.metadata[:width]
+		img_height = image.blob.metadata[:height]
+		ratio = img_height.to_f / img_width.to_f
+		possible_image_widths.reject! { |size| size > img_width }
+		possible_image_widths.map! { |size| [size, (1 + size * ratio).to_i] }
+		possible_image_widths.each do |size|
+			variant = image.variant(resize_to_limit: size).processed
+		end
+
+		[MediaObject::HERO, MediaObject::TILE, MediaObject::SMALLTILE, MediaObject::THUMBNAIL].each do |media_object_size|
+			variant = image.variant(resize_to_limit: media_object_size).processed
+		end
+	end
 
 end
