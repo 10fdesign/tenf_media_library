@@ -67,7 +67,7 @@ class MediaObject < ApplicationRecord
 		img_width = image.blob.metadata[:width]
 		img_height = image.blob.metadata[:height]
 		ratio = img_height.to_f / img_width.to_f
-		possible_image_widths.reject! { |size| size > img_width }
+		possible_image_widths.reject! { |size| size > img_width.to_f }
 		possible_image_widths.map! { |size| [size, (1 + size * ratio).to_i] }
 		possible_image_widths.each do |size|
 			variant = image.variant(resize_to_limit: size).processed
